@@ -12,3 +12,4 @@
   * 正在下载第3张图片
   * ...
   * 下载完成
+### 3、[爬取朱一龙微博视频](https://github.com/linxxjie/linxxjie_spider/blob/master/video_download.py)
