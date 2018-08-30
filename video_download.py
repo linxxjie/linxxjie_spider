@@ -1,11 +1,12 @@
 import requests
 
 headers = {
-        'Cookie': 'SSOLoginState=1535502849; ALF=1538094849; _T_WM=310acc7dfc5518de6472fedf65d99659; MLOGIN=0; WEIBOCN_FROM=1110006030; M_WEIBOCN_PARAMS=luicode%3D10000011%26lfid%3D100103type%253D3%2526q%253D%25E6%259E%2597%25E5%25B0%258F%25E5%25B0%258F%25E6%259D%25B0%2526t%253D0%26from%3Dpage_100306%26oid%3D4272857673906973%26fid%3D1005052487801744%26uicode%3D10000011',
+        'Cookie': 'your cookie',
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
     }
 
 def getUrlList():
+    print('开始获取视频地址...')
     page = 1
     url = 'https://m.weibo.cn/api/container/getIndex'
     urlsList = []
@@ -47,13 +48,13 @@ def getUrlList():
     return urlsList
 
 
-def getVideos(urlsList):
+def getVideos(urlsList, path):
     index = 1
     for url in urlsList:
         try:
             print('开始下载第' + str(index) + '个视频')
             video = requests.get(url, headers=headers)
-            with open('E:/spider/video/' + str(index) + '.mp4', 'wb') as f:
+            with open(path + '/' + str(index) + '.mp4', 'wb') as f:
                 f.write(video.content)
             if index == len(urlsList):
                 print('下载完成')
@@ -64,4 +65,5 @@ def getVideos(urlsList):
             continue
 
 if __name__ == '__main__':
-    getVideos(getUrlList())
+    path = input(('请输入保存位置：'))
+    getVideos(getUrlList(), path.replace('/', '\\'))
